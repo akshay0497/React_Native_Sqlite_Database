@@ -63,7 +63,7 @@ const Task = () => {
 
     db.transaction(function (tx) {
       tx.executeSql(
-        'INSERT INTO table_user (studentname, rollNo, physics, chemistry, biology, maths, hindi, english) VALUES (?,?,?,?,?,?,?,?)',
+        'INSERT INTO student (studentname, rollNo, physics, chemistry, biology, maths, hindi, english) VALUES (?,?,?,?,?,?,?,?)',
         [studentname,rollNo,physics,chemistry,biology,maths,hindi,english],
         (tx, results) => {
           console.log('Results', results.rowsAffected);
@@ -89,14 +89,14 @@ const Task = () => {
   useEffect(()=>{
     db.transaction(function (txn) {
       txn.executeSql(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name='table_user'",
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='student'",
         [],
         function (tx, res) {
           console.log('item:', res.rows.length);
           if (res.rows.length == 0) {
-            txn.executeSql('DROP TABLE IF EXISTS table_user', []);
+            txn.executeSql('DROP TABLE IF EXISTS student', []);
             txn.executeSql(
-              'CREATE TABLE IF NOT EXISTS table_user(user_id INTEGER PRIMARY KEY AUTOINCREMENT, studentname VARCHAR(255), rollNo INT(3), physics INT(3), chemistry INT(3), biology INT(3), maths INT(3), hindi INT(3), english INT(3))',
+              'CREATE TABLE IF NOT EXISTS student(user_id INTEGER PRIMARY KEY AUTOINCREMENT, studentname VARCHAR(255), rollNo INT(3), physics INT(3), chemistry INT(3), biology INT(3), maths INT(3), hindi INT(3), english INT(3))',
               []
             );
           }
